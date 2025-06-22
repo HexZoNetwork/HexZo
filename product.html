@@ -353,18 +353,31 @@ firebase.auth().onAuthStateChanged(function(user) {
         margin-right: 0;
         margin-left: 0;
         text-align: left;
+        padding-right: 60px;
+        box-sizing: border-box;
       }
       #profileCorner {
         position: absolute !important;
         top: 10px !important;
         right: 10px !important;
         max-width: 38vw;
+        min-width: 0;
         overflow: hidden;
         background: rgba(34,41,69,0.97);
         border-radius: 20px;
         padding: 2px 8px 2px 2px;
         box-shadow: 0 2px 8px #6c63ff22;
         z-index: 10;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      #profileCornerName {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 60px; 
+        display: inline-block;
       }
       .footer {
         padding-top: 16px;
