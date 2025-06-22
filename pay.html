@@ -90,7 +90,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     .main-content {
       opacity: 0;
       pointer-events: none;
-      display: none; /* pastikan tidak tampil sebelum loading selesai */
+      display: none;
       animation: smoothSummon 1.2s cubic-bezier(.4,2,.6,1) 1.2s forwards;
     }
     @keyframes smoothSummon {
@@ -100,11 +100,11 @@ firebase.auth().onAuthStateChanged(function(user) {
     .container {
       max-width: 480px;
       width: 100%;
-      padding: 56px 18px 24px 18px; /* Tambah padding-top agar profile tidak menimpa judul */
+      padding: 56px 18px 24px 18px; 
       background: rgba(34, 41, 69, 0.97);
       border-radius: 32px;
       box-shadow: 0 0 48px 0 #6c63ff44, 0 0 0 2px #fff2;
-      position: relative; /* Tambahkan ini */
+      position: relative; 
       animation: fadeInUp 1.1s cubic-bezier(.4,2,.6,1) 1.2s backwards;
     }
     #profileCorner {
@@ -137,6 +137,14 @@ firebase.auth().onAuthStateChanged(function(user) {
       .container {
         padding: 48px 4px 16px 4px; 
       }
+      h1 {
+        font-size: 1.2rem;
+        padding-right: 90px; 
+        text-align: left;
+        margin-top: 0;
+        margin-bottom: 10px;
+        word-break: break-word;
+      }
       #profileCorner {
         top: 8px;
         right: 8px;
@@ -147,11 +155,6 @@ firebase.auth().onAuthStateChanged(function(user) {
       #profileCornerName {
         max-width: 70px;
         font-size: 1rem;
-      }
-      h1 {
-        font-size: 1.2rem;
-        padding-right: 60px;
-        text-align: left;
       }
     }
     @keyframes gradientMove {
@@ -540,7 +543,25 @@ firebase.auth().onAuthStateChanged(function(user) {
       .loader-spinner { width: 34px; height: 34px; border-width: 4px; }
       .loader-text { font-size: 1rem; }
       .container { padding: 48px 4px 16px 4px; }
-      h1 { font-size: 1.2rem; }
+      h1 {
+        font-size: 1.2rem;
+        padding-right: 90px; /* Tambahkan padding kanan agar tidak ketabrak profile */
+        text-align: left;
+        margin-top: 0;
+        margin-bottom: 10px;
+        word-break: break-word;
+      }
+      #profileCorner {
+        top: 8px;
+        right: 8px;
+        max-width: 70vw;
+        padding: 2px 8px 2px 2px;
+        gap: 6px;
+      }
+      #profileCornerName {
+        max-width: 70px;
+        font-size: 1rem;
+      }
       .button, .payment-method { padding: 10px 8px; font-size: 0.95rem; }
       .payment-details { padding: 14px 4px; width: 100%; }
       .qr-code { max-width: 120px; }
