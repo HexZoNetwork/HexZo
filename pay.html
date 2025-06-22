@@ -149,25 +149,28 @@ firebase.auth().onAuthStateChanged(function(user) {
       .simple-loader { gap: 8px; }
       .loader-spinner { width: 34px; height: 34px; border-width: 4px; }
       .loader-text { font-size: 1rem; }
-      .container { padding: 48px 4px 16px 4px; }
-      h1 {
-        font-size: 1.2rem;
-        padding-right: 110px;
-        text-align: left;
-        margin-top: 0;
-        margin-bottom: 10px;
-        word-break: break-word;
+      .container {
+        padding: 48px 4px 16px 4px;
       }
       #profileCorner {
         top: 8px;
         right: 8px;
-        max-width: 80vw;
+        max-width: 70vw;
         padding: 2px 8px 2px 2px;
         gap: 6px;
       }
       #profileCornerName {
         max-width: 90px;
         font-size: 1rem;
+      }
+      h1 {
+        font-size: 1.2rem;
+        text-align: left;
+        margin-top: 0;
+        margin-bottom: 10px;
+        word-break: break-word;
+        padding-right: 120px;
+        display: block;
       }
       .button, .payment-method { padding: 10px 8px; font-size: 0.95rem; }
       .payment-details { padding: 14px 4px; width: 100%; }
