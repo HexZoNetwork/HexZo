@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-auth-compat.js"></script>
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyDptzg3AdvwAuS8ENjpZ_u9driOsYjodrA",
+  authDomain: "hexzo-network.firebaseapp.com",
+  projectId: "hexzo-network",
+  storageBucket: "hexzo-network.appspot.com",
+  messagingSenderId: "981229191512",
+  appId: "1:981229191512:web:0305dd0bc327fe1975a52d",
+  measurementId: "G-Y8F2W752JD"
+};
+firebase.initializeApp(firebaseConfig);
+firebase.auth().onAuthStateChanged(function(user) {
+  if (!user) {
+    window.location.href = "index";
+  }
+});
+</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Produk HexZo</title>
+  <link rel="icon" type="image/png" href="https://files.catbox.moe/er2mfu.jpg"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #232946 0%, #3e2f5b 100%) fixed;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      overflow-x: hidden;
+    }
+    .product-container {
+      background: rgba(34, 41, 69, 0.97);
+      margin-top: 48px;
+      padding: 40px 24px 32px 24px;
+      border-radius: 36px;
+      box-shadow: 0 0 48px 0 #6c63ff44, 0 0 0 2px #fff2;
+      max-width: 440px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      backdrop-filter: blur(3px);
+      animation: fadeInUp 1.1s cubic-bezier(.4,2,.6,1);
+      position: relative;
+      z-index: 1;
+    }
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(40px) scale(0.98);}
+      60% { opacity: 1; transform: translateY(-8px) scale(1.03);}
+      100% { opacity: 1; transform: translateY(0) scale(1);}
+    }
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 22px;
+      letter-spacing: 0.04em;
+      color: #fff;
+      text-shadow: 0 2px 12px #0008;
+      background: linear-gradient(90deg, #6c63ff, #48c6ef, #fff);
+      background-size: 400% 400%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientMove 7s ease-in-out infinite alternate;
+      cursor: pointer;
+      user-select: none;
+      transition: filter 0.2s;
+    }
+    h1:hover {
+      filter: brightness(1.2) drop-shadow(0 2px 12px #FFD700);
+      animation: h1Bounce 0.7s;
+    }
+    @keyframes h1Bounce {
+      0% { transform: scale(1);}
+      30% { transform: scale(1.13);}
+      60% { transform: scale(0.97);}
+      100% { transform: scale(1);}
+    }
+    .product-list {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      margin-bottom: 18px;
+      max-height: 360px;
+      overflow-y: auto;
+      padding-right: 4px;
+      scrollbar-width: thin;
+      scrollbar-color: #8e2de2 #222a;
+      animation: fadeInList 1.2s cubic-bezier(.4,2,.6,1);
+    }
+    @keyframes fadeInList {
+      from { opacity: 0; filter: blur(12px);}
+      to { opacity: 1; filter: blur(0);}
+    }
+    .product-list::-webkit-scrollbar {
+      width: 7px;
+    }
+    .product-list::-webkit-scrollbar-thumb {
+      background: #8e2de2cc;
+      border-radius: 8px;
+    }
+    .product-list::-webkit-scrollbar-track {
+      background: #222a;
+      border-radius: 8px;
+    }
+    .product-card {
+      background: linear-gradient(120deg, #6c63ffcc 60%, #48c6efcc 100%);
+      border-radius: 22px;
+      border: 2px solid rgba(255,255,255,0.10);
+      box-shadow: 0 0 22px 2px #6c63ff44, 0 0 15px rgba(72, 198, 239, 0.22);
+      padding: 18px 14px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      position: relative;
+      border: 2px solid rgba(255,255,255,0.13);
+      gap: 18px;
+      opacity: 0;
+      transform: translateY(30px) scale(0.97);
+      animation: cardPop 0.7s cubic-bezier(.4,2,.6,1) forwards;
+      cursor: pointer;
+      transition: box-shadow 0.22s, border-color 0.22s, transform 0.22s, filter 0.22s;
+      user-select: none;
+    }
+    .product-card:nth-child(1) { animation-delay: 0.1s; }
+    .product-card:nth-child(2) { animation-delay: 0.18s; }
+    .product-card:nth-child(3) { animation-delay: 0.26s; }
+    .product-card:nth-child(4) { animation-delay: 0.34s; }
+    .product-card:nth-child(5) { animation-delay: 0.42s; }
+    .product-card:nth-child(6) { animation-delay: 0.5s; }
+    .product-card:nth-child(7) { animation-delay: 0.58s; }
+    .product-card:nth-child(8) { animation-delay: 0.66s; }
+    .product-card:nth-child(9) { animation-delay: 0.74s; }
+    .product-card:nth-child(10) { animation-delay: 0.82s; }
+    @keyframes cardPop {
+      0% { opacity: 0; transform: translateY(30px) scale(0.97);}
+      80% { opacity: 1; transform: translateY(-6px) scale(1.04);}
+      100% { opacity: 1; transform: translateY(0) scale(1);}
+    }
+    .product-card:hover {
+      box-shadow: 0 12px 36px 0 #8e2de288, 0 0 24px 0 #0072ff33;
+      transform: translateY(-2px) scale(1.025) rotate(-2deg);
+      border-color: #0072ff;
+      filter: brightness(1.08);
+      animation: cardWiggle 0.5s;
+    }
+    @keyframes cardWiggle {
+      0% { transform: translateY(0) scale(1);}
+      30% { transform: translateY(-10px) scale(1.05) rotate(-6deg);}
+      60% { transform: translateY(-2px) scale(1.025) rotate(2deg);}
+      100% { transform: translateY(-2px) scale(1.025) rotate(-2deg);}
+    }
+    .product-card:active {
+      filter: brightness(1.18) blur(1px);
+      transform: scale(0.97) rotate(2deg);
+      transition: filter 0.18s, transform 0.18s;
+    }
+    .product-logo {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 2.5px solid #6c63ff;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 12px #8e2de244;
+      margin-right: 4px;
+      flex-shrink: 0;
+      font-size: 2rem;
+      overflow: hidden;
+      transition: box-shadow 0.18s, border-color 0.18s, background 0.18s, transform 0.18s;
+      position: relative;
+      z-index: 1;
+      animation: logoPop 0.7s cubic-bezier(.4,2,.6,1);
+      cursor: pointer;
+    }
+    @keyframes logoPop {
+      0% { opacity: 0; transform: scale(0.7);}
+      80% { opacity: 1; transform: scale(1.08);}
+      100% { opacity: 1; transform: scale(1);}
+    }
+    .product-card:hover .product-logo,
+    .product-logo:hover {
+      box-shadow: 0 4px 18px #8e2de288, 0 0 8px #0072ff44;
+      border-color: #0072ff;
+      background: #f5f8ff;
+      transform: scale(1.18) rotate(-8deg);
+      animation: logoBounce 0.5s;
+    }
+    @keyframes logoBounce {
+      0% { transform: scale(1);}
+      40% { transform: scale(1.25) rotate(-12deg);}
+      80% { transform: scale(1.1) rotate(8deg);}
+      100% { transform: scale(1.18) rotate(-8deg);}
+    }
+    .product-logo img {
+      width: 34px;
+      height: 34px;
+      object-fit: contain;
+      display: block;
+      filter: drop-shadow(0 2px 6px #8e2de2aa);
+    }
+    .product-logo svg {
+      width: 34px;
+      height: 34px;
+      display: block;
+    }
+    .product-info {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      flex: 1;
+      min-width: 0;
+    }
+    .product-title {
+      font-size: 1.18rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+      text-shadow: 0 1px 4px #0008;
+      letter-spacing: 0.01em;
+      word-break: break-word;
+      line-height: 1.2;
+      cursor: pointer;
+      transition: color 0.2s, filter 0.2s;
+    }
+    .product-title:hover {
+      color: #FFD700;
+      filter: brightness(1.15) drop-shadow(0 0 8px #FFD700);
+      animation: titlePulse 0.5s;
+    }
+    @keyframes titlePulse {
+      0% { transform: scale(1);}
+      50% { transform: scale(1.08);}
+      100% { transform: scale(1);}
+    }
+    .product-price {
+      font-size: 1.08rem;
+      color: #48c6ef;
+      margin-bottom: 10px;
+      font-weight: 600;
+      text-shadow: 0 1px 2px #0008;
+      transition: color 0.2s, filter 0.2s;
+      cursor: pointer;
+    }
+    .product-price:hover {
+      color: #fff;
+      filter: brightness(1.2) drop-shadow(0 0 8px #8e2de2);
+      animation: pricePulse 0.5s;
+    }
+    @keyframes pricePulse {
+      0% { transform: scale(1);}
+      50% { transform: scale(1.12);}
+      100% { transform: scale(1);}
+    }
+    .wa-btn {
+      background: linear-gradient(90deg, #22c55e 60%, #16a34a 100%);
+      color: #fff;
+      border-radius: 14px;
+      font-weight: bold;
+      font-size: 1.08rem;
+      padding: 12px 0;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 2px;
+      cursor: pointer;
+      position: relative;
+      z-index: 2;
+      overflow: hidden;
+      text-decoration: none;
+      border: none;
+      transition: transform 0.16s cubic-bezier(.4,2,.6,1), box-shadow 0.16s cubic-bezier(.4,2,.6,1), filter 0.16s cubic-bezier(.4,2,.6,1);
+      will-change: transform, filter, box-shadow;
+      touch-action: manipulation;
+    }
+    .wa-btn:hover,
+    .wa-btn:focus-visible {
+      transform: scale(1.07);
+      box-shadow: 0 8px 28px 0 #25d366cc, 0 0 24px 0 #128c7e88;
+      filter: brightness(1.13);
+      outline: none;
+      text-decoration: none;
+    }
+    .wa-btn:active {
+      transform: scale(0.96);
+      filter: brightness(0.95);
+    }
+    .wa-btn i {
+      font-size: 1.18em;
+    }
+    .footer {
+      margin-top: 36px;
+      border-top: 1.5px solid rgba(255,255,255,0.10);
+      padding-top: 22px;
+      text-align: center;
+      color: #b8c1ec;
+      font-size: 1rem;
+      opacity: 0.85;
+      letter-spacing: 0.02em;
+      text-shadow: 0 1px 2px #0008;
+      user-select: none;
+      cursor: pointer;
+      transition: opacity 0.2s, filter 0.2s;
+    }
+    .footer:hover {
+      opacity: 1;
+      filter: brightness(1.1) drop-shadow(0 0 8px #FFD700);
+      animation: footerPulse 0.6s;
+    }
+    @keyframes footerPulse {
+      0% { transform: scale(1);}
+      50% { transform: scale(1.08);}
+      100% { transform: scale(1);}
+    }
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    @media (max-width: 600px) {
+      .product-container { padding: 10px 2px; margin-top: 10px; }
+      h1 { font-size: 1.15rem; }
+      .product-card { padding: 8px 2px; }
+      .wa-btn { font-size: 0.98rem; padding: 8px 0; }
+      .product-list { max-height: 220px; }
+      .back-btn { padding: 10px 16px; font-size: 0.98rem; }
+      .product-logo { width: 32px; height: 32px; font-size: 1.3rem; }
+      .product-logo img, .product-logo svg { width: 22px; height: 22px; }
+    }
+    .back-btn {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 12px 22px;
+      background: linear-gradient(90deg, #6c63ff 60%, #48c6ef 100%);
+      color: #fff;
+      border-radius: 14px;
+      font-size: 1.08rem;
+      font-weight: bold;
+      text-decoration: none;
+      box-shadow: 0 2px 12px #8e2de244;
+      border: none;
+      transition: 
+        transform 0.28s cubic-bezier(.4,2,.6,1),
+        filter 0.18s,
+        background 0.22s;
+      cursor: pointer;
+      position: relative;
+    }
+    .back-btn:hover {
+      filter: brightness(1.15) drop-shadow(0 0 8px #FFD700);
+      background: linear-gradient(90deg, #48c6ef 60%, #6c63ff 100%);
+      transform: scale(1.07) rotate(-4deg);
+    }
+    .back-btn:active {
+      transform: scale(0.96);
+      filter: brightness(0.95);
+    }
+    .product-card,
+    .product-logo,
+    .product-title,
+    .product-price {
+      transition: none !important;
+      animation: none !important;
+      filter: none !important;
+      transform: none !important;
+      box-shadow: none !important;
+      cursor: default !important;
+    }
+    .product-card:hover,
+    .product-logo:hover,
+    .product-title:hover,
+    .product-price:hover,
+    .product-card:active,
+    .product-logo:active,
+    .product-title:active,
+    .product-price:active {
+      filter: none !important;
+      transform: none !important;
+      animation: none !important;
+      box-shadow: none !important;
+    }
+    .wa-btn {
+      transition: transform 0.16s cubic-bezier(.4,2,.6,1), box-shadow 0.16s cubic-bezier(.4,2,.6,1), filter 0.16s cubic-bezier(.4,2,.6,1);
+      will-change: transform, filter, box-shadow;
+      touch-action: manipulation;
+    }
+    .wa-btn:hover,
+    .wa-btn:focus-visible {
+      transform: scale(1.07);
+      box-shadow: 0 8px 28px 0 #25d366cc, 0 0 24px 0 #128c7e88;
+      filter: brightness(1.13);
+      outline: none;
+    }
+    .wa-btn:active {
+      transform: scale(0.96);
+      filter: brightness(0.95);
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+</head>
+  <div class="product-container">
+    <div id="profileCorner" style="position:absolute;top:18px;right:18px;cursor:pointer;z-index:10;display:flex;align-items:center;gap:10px;">
+  <img id="profileCornerPic" src="https://ui-avatars.com/api/?name=U" alt="Profil" style="width:38px;height:38px;border-radius:50%;border:2.5px solid #6c63ff;box-shadow:0 2px 8px #6c63ff44;background:#fff;object-fit:cover;">
+  <span id="profileCornerName" style="font-weight:600;font-size:1.08rem;color:#fff;text-shadow:0 2px 8px #6c63ff88,0 0 2px #232946;">User</span>
+</div>
+    <h1 id="judulProduk">Daftar Produk</h1>
+    <div class="product-list" id="productList"></div>
+    <div class="footer" id="footerProduk">
+      &copy; 2025 HexZo • All Rights Reserved
+      <br>
+      <a href="main" class="back-btn" id="backBtn">
+        <i class="fas fa-arrow-left"></i> Back to Biodata
+      </a>
+    </div>
+  </div>
+  <audio id="efek-suara" src="https://files.catbox.moe/8334xc.mp3" loop></audio>
+  <script>
+    const logoHosting = `
+      <svg viewBox="0 0 48 48" fill="none">
+        <circle cx="24" cy="24" r="22" fill="#fff" stroke="#8e2de2" stroke-width="2.5"/>
+        <g>
+          <path fill="#0080FF" d="M24 36c6.627 0 12-5.373 12-12S30.627 12 24 12s-12 5.373-12 12 5.373 12 12 12z"/>
+          <path fill="#fff" d="M24 32a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"/>
+          <circle cx="24" cy="24" r="5" fill="#0080FF"/>
+        </g>
+      </svg>
+    `;
+    const logoNonHosting = `
+      <svg viewBox="0 0 48 48" fill="none">
+        <circle cx="24" cy="24" r="22" fill="#fff" stroke="#8e2de2" stroke-width="2.5"/>
+        <rect x="13" y="22" width="22" height="13" rx="4" fill="#8e2de2" fill-opacity="0.13"/>
+        <rect x="13" y="22" width="22" height="13" rx="4" stroke="#8e2de2" stroke-width="1.5"/>
+        <path d="M17 22v-4a7 7 0 0 1 14 0v4" stroke="#8e2de2" stroke-width="2" stroke-linecap="round"/>
+        <rect x="17" y="28" width="3" height="5" rx="1.5" fill="#8e2de2"/>
+        <rect x="23" y="28" width="3" height="5" rx="1.5" fill="#8e2de2"/>
+        <rect x="29" y="28" width="3" height="5" rx="1.5" fill="#8e2de2"/>
+      </svg>
+    `;
+    const produk = [
+      { nama: "Hosting Murah", harga: 1, kategori: "hosting" },
+      { nama: "VPS", harga: 1, kategori: "hosting" },
+      { nama: "Domain", harga: 1, kategori: "hosting" },
+      { nama: "Pulsa", harga: 1, kategori: "lain" },
+      { nama: "Dm FF", harga: 1, kategori: "lain" },
+      { nama: "Dm ML", harga: 1, kategori: "lain" },
+      { nama: "Kuota 5GB", harga: 1, kategori: "lain" },
+      { nama: "Bokep", harga: 1, kategori: "lain" }
+    ];
+    const waBase = "https://wa.me/6282376605047?text=";
+    function formatRupiah(angka) {
+      return angka.toLocaleString('id-ID');
+    }
+    function encodeWaText(text) {
+      return encodeURIComponent(text);
+    }
+    function renderProduk() {
+      const list = document.getElementById('productList');
+      list.innerHTML = '';
+      produk.forEach((item, idx) => {
+        let logoHtml = '';
+        if(item.kategori === "hosting") {
+          logoHtml = `<span class="product-logo" title="Hosting">${logoHosting}</span>`;
+        } else {
+          logoHtml = `<span class="product-logo" title="Produk Lain">${logoNonHosting}</span>`;
+        }
+        const waText = `Bang Mau Beli ${item.nama} Seharga ${formatRupiah(item.harga)}Rp`;
+        const waLink = waBase + encodeWaText(waText);
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.innerHTML = `
+          ${logoHtml}
+          <div class="product-info">
+            <div class="product-title">${item.nama}</div>
+            <div class="product-price">Rp ${formatRupiah(item.harga)}</div>
+            <a class="wa-btn" href="${waLink}" target="_blank">
+              <i class="fab fa-whatsapp"></i> Beli via WhatsApp
+            </a>
+          </div>
+        `;
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px) scale(0.97)';
+        setTimeout(() => {
+          card.style.transition = 'opacity 0.7s cubic-bezier(.4,2,.6,1), transform 0.7s cubic-bezier(.4,2,.6,1)';
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0) scale(1)';
+        }, 200 + idx * 180);
+        list.appendChild(card);
+      });
+    }
+    renderProduk();
+
+
+    document.querySelectorAll('.product-card').forEach(card => {
+      card.addEventListener('mousemove', function() {
+        if (!this.classList.contains('wiggle')) {
+          this.classList.add('wiggle');
+          setTimeout(() => this.classList.remove('wiggle'), 500);
+        }
+      });
+      card.addEventListener('mousedown', function() {
+        this.style.filter = 'brightness(1.18) blur(1px)';
+        this.style.transform = 'scale(0.97) rotate(2deg)';
+      });
+      card.addEventListener('mouseup', function() {
+        this.style.filter = '';
+        this.style.transform = '';
+      });
+      card.addEventListener('mouseleave', function() {
+        this.style.filter = '';
+        this.style.transform = '';
+        this.classList.remove('wiggle');
+      });
+    });
+
+    document.querySelectorAll('.product-logo').forEach(logo => {
+      logo.addEventListener('mouseenter', function() {
+        this.style.transform = 'scale(1.18) rotate(-8deg)';
+        this.style.background = '#f5f8ff';
+        this.style.boxShadow = '0 4px 18px #8e2de288, 0 0 8px #0072ff44';
+        this.style.borderColor = '#0072ff';
+      });
+      logo.addEventListener('mouseleave', function() {
+        this.style.transform = '';
+        this.style.background = '';
+        this.style.boxShadow = '';
+        this.style.borderColor = '';
+      });
+      logo.addEventListener('click', function() {
+        this.style.animation = 'logoBounce 0.5s';
+        setTimeout(() => this.style.animation = '', 500);
+      });
+    });
+
+    document.querySelectorAll('.product-title').forEach(title => {
+      title.addEventListener('mouseenter', function() {
+        this.style.color = '#FFD700';
+        this.style.filter = 'brightness(1.15) drop-shadow(0 0 8px #FFD700)';
+        this.style.animation = 'titlePulse 0.5s';
+      });
+      title.addEventListener('mouseleave', function() {
+        this.style.color = '';
+        this.style.filter = '';
+        this.style.animation = '';
+      });
+    });
+
+    document.querySelectorAll('.product-price').forEach(price => {
+      price.addEventListener('mouseenter', function() {
+        this.style.color = '#fff';
+        this.style.filter = 'brightness(1.2) drop-shadow(0 0 8px #8e2de2)';
+        this.style.animation = 'pricePulse 0.5s';
+      });
+      price.addEventListener('mouseleave', function() {
+        this.style.color = '';
+        this.style.filter = '';
+        this.style.animation = '';
+      });
+    });
+
+    document.querySelectorAll('.wa-btn').forEach(btn => {
+      let resetTimeout;
+      btn.addEventListener('mousedown', function() {
+        this.style.transform = 'scale(0.97)';
+        clearTimeout(resetTimeout);
+      });
+      btn.addEventListener('mouseup', function() {
+        this.style.transform = 'scale(1.09) translateY(-2px) rotate(-2deg)';
+        clearTimeout(resetTimeout);
+        resetTimeout = setTimeout(() => { this.style.transform = ''; }, 350);
+      });
+      btn.addEventListener('mouseleave', function(e) {
+        clearTimeout(resetTimeout);
+        resetTimeout = setTimeout(() => { this.style.transform = ''; }, 220);
+      });
+      btn.addEventListener('mouseenter', function() {
+        clearTimeout(resetTimeout);
+      });
+    });
+
+
+    let discoCount = 0;
+    document.getElementById('judulProduk').addEventListener('click', function() {
+      discoCount++;
+      if (discoCount === 5) {
+        document.body.classList.add('disco');
+        document.getElementById('efek-suara').play();
+        this.innerText = "DAFTAR PRODUK";
+        setTimeout(() => {
+          document.body.classList.remove('disco');
+          document.getElementById('efek-suara').pause();
+          document.getElementById('efek-suara').currentTime = 0;
+          this.innerText = "Daftar Produk";
+          discoCount = 0;
+        }, 3500);
+      }
+      setTimeout(() => { if (discoCount < 5) discoCount = 0; }, 2000);
+    });
+
+    document.getElementById('footerProduk').addEventListener('click', function() {
+      this.style.opacity = '1';
+      this.style.filter = 'brightness(1.2) drop-shadow(0 0 8px #FFD700)';
+      this.style.animation = 'footerPulse 0.6s';
+      setTimeout(() => {
+        this.style.opacity = '';
+        this.style.filter = '';
+        this.style.animation = '';
+      }, 600);
+    });
+
+    document.getElementById('backBtn').addEventListener('mouseenter', function() {
+      this.style.transform = 'scale(1.09) rotate(-4deg)';
+      this.style.filter = 'brightness(1.2)';
+    });
+    document.getElementById('backBtn').addEventListener('mouseleave', function() {
+      this.style.transform = '';
+      this.style.filter = '';
+    });
+    document.getElementById('backBtn').addEventListener('mousedown', function() {
+      this.style.transform = 'scale(0.97)';
+    });
+    document.getElementById('backBtn').addEventListener('mouseup', function() {
+      this.style.transform = 'scale(1.09) rotate(-4deg)';
+      setTimeout(() => { this.style.transform = ''; }, 180);
+    });
+
+
+    const discoStyle = document.createElement('style');
+    discoStyle.innerHTML = `
+      .disco {
+        animation: discoBg 2.5s linear infinite;
+        transition: background 0.5s;
+      }
+      @keyframes discoBg {
+        0% { filter: hue-rotate(0deg) brightness(1.1) saturate(1.2);}
+        20% { filter: hue-rotate(60deg) brightness(1.15) saturate(1.3);}
+        40% { filter: hue-rotate(120deg) brightness(1.18) saturate(1.4);}
+        60% { filter: hue-rotate(180deg) brightness(1.13) saturate(1.3);}
+        80% { filter: hue-rotate(240deg) brightness(1.1) saturate(1.2);}
+        100% { filter: hue-rotate(360deg) brightness(1.1) saturate(1.2);}
+      }
+    `;
+    document.head.appendChild(discoStyle);
+
+  
+    document.querySelectorAll('.product-card, .product-logo, .product-title, .product-price').forEach(el => {
+      el.onmouseenter = null;
+      el.onmouseleave = null;
+      el.onmousemove = null;
+      el.onmousedown = null;
+      el.onmouseup = null;
+      el.onclick = null;
+      el.classList.remove('wiggle');
+      el.style.filter = '';
+      el.style.transform = '';
+      el.style.animation = '';
+      el.style.boxShadow = '';
+    });
+
+
+    document.querySelectorAll('.wa-btn').forEach(btn => {
+      btn.onmouseenter = null;
+      btn.onmouseleave = null;
+      btn.onmousemove = null;
+      btn.onmousedown = null;
+      btn.onmouseup = null;
+      btn.onclick = null;
+      btn.addEventListener('mouseenter', function() {
+        this.style.transform = 'scale(1.07)';
+        this.style.filter = 'brightness(1.13)';
+        this.style.boxShadow = '0 8px 28px 0 #25d366cc, 0 0 24px 0 #128c7e88';
+      });
+      btn.addEventListener('mouseleave', function() {
+        this.style.transform = '';
+        this.style.filter = '';
+        this.style.boxShadow = '';
+      });
+      btn.addEventListener('mousedown', function() {
+        this.style.transform = 'scale(0.96)';
+        this.style.filter = 'brightness(0.95)';
+      });
+      btn.addEventListener('mouseup', function() {
+        this.style.transform = 'scale(1.07)';
+        this.style.filter = 'brightness(1.13)';
+      });
+    });
+firebase.auth().onAuthStateChanged(function(user) {
+  if (!user) {
+    window.location.href = "index";
+    return;
+  }
+  const pic = user.photoURL || "https://ui-avatars.com/api/?name=" + encodeURIComponent(user.displayName || "U");
+  document.getElementById('profileCornerPic').src = pic;
+  document.getElementById('profileCornerName').textContent = user.displayName || "User";
+  document.getElementById('profileCorner').onclick = function() {
+    window.location.href = "profile.html";
+  };
+});
+  </script>
+</body>
+</html>

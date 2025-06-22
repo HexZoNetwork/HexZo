@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-auth-compat.js"></script>
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyDptzg3AdvwAuS8ENjpZ_u9driOsYjodrA",
+  authDomain: "hexzo-network.firebaseapp.com",
+  projectId: "hexzo-network",
+  storageBucket: "hexzo-network.appspot.com",
+  messagingSenderId: "981229191512",
+  appId: "1:981229191512:web:0305dd0bc327fe1975a52d",
+  measurementId: "G-Y8F2W752JD"
+};
+firebase.initializeApp(firebaseConfig);
+firebase.auth().onAuthStateChanged(function(user) {
+  if (!user) {
+    window.location.href = "index";
+  }
+});
+</script>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="https://files.catbox.moe/er2mfu.jpg"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Biodata HexZo - Network</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background: url('https://files.catbox.moe/nz513r.jpg') center center/cover no-repeat fixed;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      overflow-x: hidden;
+      transition: filter 0.5s cubic-bezier(.4,2,.6,1), background 0.5s;
+    }
+    .profile-container {
+      background: rgba(0, 32, 64, 0.92);
+      margin-top: 48px;
+      padding: 38px 24px 32px 24px;
+      border-radius: 32px;
+      box-shadow: 0 0 40px 0 #8e2de244, 0 0 0 2px #fff2;
+      max-width: 420px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      backdrop-filter: blur(3px);
+      animation: fadeInUp 1.1s cubic-bezier(.4,2,.6,1);
+      position: relative;
+      z-index: 1;
+      transition: transform 0.7s cubic-bezier(.4,2,.6,1), left 0.7s, top 0.7s;
+    }
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(40px) scale(0.98);}
+      60% { opacity: 1; transform: translateY(-8px) scale(1.03);}
+      100% { opacity: 1; transform: translateY(0) scale(1);}
+    }
+    .profile-pic {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #8e2de2;
+      box-shadow: 0 0 18px #8e2de288;
+      margin-bottom: 18px;
+      animation: popPic 1.2s cubic-bezier(.4,2,.6,1);
+      transition: box-shadow 0.2s, border-color 0.2s, filter 0.3s;
+      cursor: pointer;
+    }
+    @keyframes popPic {
+      0% { opacity: 0; transform: scale(0.7);}
+      80% { opacity: 1; transform: scale(1.08);}
+      100% { opacity: 1; transform: scale(1);}
+    }
+    .profile-pic:hover {
+      box-shadow: 0 0 32px #8e2de2cc, 0 0 18px #0072ff99;
+      border-color: #0072ff;
+      filter: brightness(1.08) drop-shadow(0 0 18px #FFD700);
+      transition: box-shadow 0.2s, border-color 0.2s, filter 0.3s;
+      animation: shakePic 0.5s;
+    }
+    @keyframes shakePic {
+      0% { transform: rotate(0);}
+      20% { transform: rotate(-8deg);}
+      40% { transform: rotate(8deg);}
+      60% { transform: rotate(-6deg);}
+      80% { transform: rotate(6deg);}
+      100% { transform: rotate(0);}
+    }
+    .profile-name {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      letter-spacing: 0.03em;
+      color: #fff;
+      text-shadow: 0 2px 8px #0008;
+      background: linear-gradient(90deg, #8e2de2, #0072ff, #fff);
+      background-size: 400% 400%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientMove 7s ease-in-out infinite alternate, fadeInText 1.2s cubic-bezier(.4,2,.6,1);
+      cursor: pointer;
+      transition: filter 0.2s, letter-spacing 0.2s;
+      user-select: none;
+    }
+    @keyframes fadeInText {
+      0% { opacity: 0; letter-spacing: 0.2em; }
+      100% { opacity: 1; letter-spacing: 0.03em; }
+    }
+    .profile-name:hover {
+      filter: brightness(1.2) drop-shadow(0 2px 8px #8e2de2cc);
+      letter-spacing: 0.08em;
+      animation: bounceName 0.5s;
+    }
+    @keyframes bounceName {
+      0% { transform: scale(1);}
+      30% { transform: scale(1.18);}
+      60% { transform: scale(0.92);}
+      100% { transform: scale(1);}
+    }
+    .profile-desc {
+      font-size: 1.13rem;
+      color: #e0e0e0;
+      margin-bottom: 18px;
+      text-align: center;
+      animation: fadeInText 1.3s cubic-bezier(.4,2,.6,1) 0.2s backwards;
+      transition: color 0.2s, filter 0.2s;
+      cursor: pointer;
+      user-select: none;
+    }
+    .profile-desc:hover {
+      color: #FFD700;
+      filter: brightness(1.15) drop-shadow(0 0 8px #FFD700);
+      animation: pulseDesc 0.6s;
+    }
+    @keyframes pulseDesc {
+      0% { transform: scale(1);}
+      50% { transform: scale(1.08);}
+      100% { transform: scale(1);}
+    }
+    .links-list {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 18px;
+      animation: fadeInList 1.2s cubic-bezier(.4,2,.6,1) 0.2s backwards;
+    }
+    @keyframes fadeInList {
+      from { opacity: 0; filter: blur(12px);}
+      to { opacity: 1; filter: blur(0);}
+    }
+    .link-btn {
+      background: linear-gradient(270deg, #8e2de2, #0072ff, #fff, #8e2de2, #0072ff, #fff);
+      background-size: 1200% 1200%;
+      color: #fff;
+      border: none;
+      padding: 15px 0;
+      border-radius: 18px;
+      font-size: 1.13rem;
+      font-weight: bold;
+      box-shadow: 0 0 15px rgba(0, 123, 255, 0.22);
+      text-decoration: none;
+      text-align: center;
+      transition: transform 0.16s cubic-bezier(.4,2,.6,1), box-shadow 0.16s cubic-bezier(.4,2,.6,1), filter 0.16s cubic-bezier(.4,2,.6,1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+      opacity: 1;
+      transform: none;
+      cursor: pointer;
+      user-select: none;
+      will-change: transform, filter, box-shadow;
+      touch-action: manipulation;
+      animation: none !important;
+    }
+
+    .link-btn:hover,
+    .link-btn:focus-visible {
+      transform: scale(1.07);
+      box-shadow: 0 8px 28px 0 #8e2de2cc, 0 0 24px 0 #0072ff88;
+      filter: brightness(1.13);
+      outline: none;
+    }
+
+    .link-btn:active {
+      transform: scale(0.96);
+      filter: brightness(0.95);
+    }
+
+    .link-btn.jump,
+    .link-btn.fall {
+      animation: none !important;
+    }
+    .link-btn:nth-child(1) { animation-delay: 0.1s; }
+    .link-btn:nth-child(2) { animation-delay: 0.18s; }
+    .link-btn:nth-child(3) { animation-delay: 0.26s; }
+    .link-btn:nth-child(4) { animation-delay: 0.34s; }
+    .link-btn:nth-child(5) { animation-delay: 0.42s; }
+    .link-btn:nth-child(6) { animation-delay: 0.5s; }
+    @keyframes cardPop {
+      0% { opacity: 0; transform: translateY(30px) scale(0.97);}
+      80% { opacity: 1; transform: translateY(-6px) scale(1.04);}
+      100% { opacity: 1; transform: translateY(0) scale(1);}
+    }
+    .link-btn:hover {
+      transform: scale(1.09) translateY(-2px) rotate(-2deg);
+      box-shadow: 0 8px 28px 0 #8e2de2cc, 0 0 24px 0 #0072ff88;
+      filter: brightness(1.13);
+      background: linear-gradient(90deg, #0072ff, #8e2de2, #fff);
+      background-size: 1200% 1200%;
+      animation: shakeBtn 0.4s;
+    }
+    @keyframes shakeBtn {
+      0% { transform: scale(1.09) translateY(-2px) rotate(-2deg);}
+      30% { transform: scale(1.13) translateY(-4px) rotate(2deg);}
+      60% { transform: scale(1.09) translateY(-2px) rotate(-2deg);}
+      100% { transform: scale(1.09) translateY(-2px) rotate(-2deg);}
+    }
+    .link-btn:active {
+      transform: scale(0.97);
+      filter: brightness(0.95);
+    }
+    .link-btn .fa-shopping-cart {
+      animation: cartBounce 1.5s infinite alternate;
+    }
+    @keyframes cartBounce {
+      0% { transform: translateY(0);}
+      50% { transform: translateY(-4px);}
+      100% { transform: translateY(0);}
+    }
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .sosmed {
+      display: flex;
+      gap: 18px;
+      margin-top: 10px;
+      justify-content: center;
+      animation: fadeInList 1.2s cubic-bezier(.4,2,.6,1) 0.3s backwards;
+    }
+    .sosmed a {
+      color: #fff;
+      font-size: 1.5rem;
+      transition: color 0.2s, transform 0.2s, filter 0.2s;
+      text-decoration: none;
+      filter: drop-shadow(0 2px 6px #8e2de2aa);
+      opacity: 0.85;
+      animation: iconPop 1.1s cubic-bezier(.4,2,.6,1);
+      cursor: pointer;
+      user-select: none;
+    }
+    .sosmed a:hover {
+      color: #8e2de2;
+      transform: scale(1.18) rotate(-8deg);
+      filter: drop-shadow(0 4px 12px #8e2de2cc);
+      opacity: 1;
+      animation: iconPop2 0.5s;
+    }
+    @keyframes iconPop {
+      0% { opacity: 0; transform: scale(0.7);}
+      80% { opacity: 1; transform: scale(1.15);}
+      100% { opacity: 1; transform: scale(1);}
+    }
+    @keyframes iconPop2 {
+      0% { transform: scale(1.18) rotate(-8deg);}
+      50% { transform: scale(1.28) rotate(8deg);}
+      100% { transform: scale(1.18) rotate(-8deg);}
+    }
+    .footer {
+      margin-top: 32px;
+      color: #fff;
+      font-size: 1rem;
+      text-align: center;
+      opacity: 0.8;
+      letter-spacing: 0.02em;
+      text-shadow: 0 1px 2px #0008;
+      animation: fadeInText 1.2s cubic-bezier(.4,2,.6,1) 0.5s backwards;
+      user-select: none;
+      cursor: pointer;
+      transition: opacity 0.2s, filter 0.2s;
+    }
+    .footer:hover {
+      opacity: 1;
+      filter: brightness(1.1) drop-shadow(0 0 8px #FFD700);
+      animation: footerPulse 0.6s;
+    }
+    @keyframes footerPulse {
+      0% { transform: scale(1);}
+      50% { transform: scale(1.08);}
+      100% { transform: scale(1);}
+    }
+    .link-btn:after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(142,45,226,0.18);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      pointer-events: none;
+      transition: width 0.4s, height 0.4s, opacity 0.4s;
+      z-index: 0;
+    }
+    .link-btn:active:after {
+      width: 180%;
+      height: 180%;
+      opacity: 1;
+      transition: 0s;
+    }
+    .disco {
+      animation: discoBg 2.5s linear infinite;
+      transition: background 0.5s;
+    }
+    @keyframes discoBg {
+      0% { filter: hue-rotate(0deg) brightness(1.1) saturate(1.2);}
+      20% { filter: hue-rotate(60deg) brightness(1.15) saturate(1.3);}
+      40% { filter: hue-rotate(120deg) brightness(1.18) saturate(1.4);}
+      60% { filter: hue-rotate(180deg) brightness(1.13) saturate(1.3);}
+      80% { filter: hue-rotate(240deg) brightness(1.1) saturate(1.2);}
+      100% { filter: hue-rotate(360deg) brightness(1.1) saturate(1.2);}
+    }
+    .secret {
+      animation: secretGlow 1.2s cubic-bezier(.4,2,.6,1) infinite alternate;
+      box-shadow: 0 0 32px 8px #FFD70099, 0 0 12px #8e2de2cc;
+      filter: brightness(1.2) drop-shadow(0 2px 8px #FFD700);
+    }
+    @keyframes secretGlow {
+      0% { box-shadow: 0 0 32px 8px #FFD70099, 0 0 12px #8e2de2cc; }
+      100% { box-shadow: 0 0 48px 16px #FFD700cc, 0 0 24px #8e2de2cc; }
+    }
+    .confetti {
+      position: fixed;
+      left: 0; top: 0;
+      width: 100vw; height: 100vh;
+      pointer-events: none;
+      z-index: 9999;
+      overflow: hidden;
+      transition: opacity 0.7s cubic-bezier(.4,2,.6,1);
+    }
+    .confetti-piece {
+      position: absolute;
+      width: 12px;
+      height: 18px;
+      border-radius: 3px;
+      opacity: 0.85;
+      will-change: transform, opacity;
+    }
+    .flash {
+      position: fixed;
+      left: 0; top: 0;
+      width: 100vw; height: 100vh;
+      background: #fff;
+      opacity: 0.85;
+      z-index: 99999;
+      pointer-events: none;
+      transition: opacity 0.5s cubic-bezier(.4,2,.6,1);
+    }
+    @media (max-width: 600px) {
+      .profile-container { padding: 14px 2px; margin-top: 14px; }
+      .profile-name { font-size: 1.2rem; }
+      .link-btn { font-size: 1rem; padding: 12px 0; }
+      .profile-pic { width: 80px; height: 80px; }
+    }
+    .link-btn {
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity 0.7s cubic-bezier(.4,2,.6,1);
+}
+.link-btn.hide-btn {
+  opacity: 0;
+  pointer-events: none;
+}
+.link-btn {
+  transition: transform 0.35s cubic-bezier(.4,2,.6,1);
+}
+.link-btn.jump {
+  animation: btnJump 0.45s cubic-bezier(.4,2,.6,1);
+}
+.link-btn.fall {
+  animation: btnFall 0.38s cubic-bezier(.4,2,.6,1);
+}
+@keyframes btnFall {
+  0% { transform: translateY(0) scale(1);}
+  60% { transform: translateY(18px) scale(0.97) rotate(2deg);}
+  100% { transform: translateY(0) scale(1);}
+}
+@keyframes btnJump {
+  0% { transform: translateY(0) scale(1);}
+  30% { transform: translateY(-22px) scale(1.08) rotate(-6deg);}
+  60% { transform: translateY(-10px) scale(1.04) rotate(2deg);}
+  100% { transform: translateY(0) scale(1);}
+}
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+</head>
+<body>
+  <div class="profile-container" id="profileContainer">
+     <div id="profileCorner" style="position:absolute;top:18px;right:18px;cursor:pointer;z-index:10;display:flex;align-items:center;gap:10px;">
+  <img id="profileCornerPic" src="https://ui-avatars.com/api/?name=U" alt="Profil" style="width:38px;height:38px;border-radius:50%;border:2.5px solid #8e2de2;box-shadow:0 2px 8px #8e2de244;background:#fff;object-fit:cover;">
+  <span id="profileCornerName" style="font-weight:600;font-size:1.08rem;color:#fff;text-shadow:0 2px 8px #8e2de288,0 0 2px #232946;">User</span>
+</div>
+    <img src="https://files.catbox.moe/er2mfu.jpg" alt="HexZo Avatar" class="profile-pic" id="avatar"/>
+    <div class="profile-name" id="profileName">HexZo</div>
+    <div class="profile-desc" id="profileDesc"> Newbie Programer - Seller <br/>Take a look!</div>
+    <div class="links-list">
+      <a class="link-btn" href="https://wa.me/6282376605047?text=Gutten Morgen HexZo." target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+      <a class="link-btn" href="https://t.me/HexZo_Net" target="_blank"><i class="fab fa-telegram"></i> Telegram</a>
+      <a class="link-btn" href="https://github.com/HexZoNetwork" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+      <a class="link-btn" href="https://whatsapp.com/channel/0029VbABpVeAu3aTmTfzXJ32" target="_blank"><i class="fas fa-bullhorn"></i> WhatsApp Channel</a>
+      <a class="link-btn pay-btn" href="pay">
+        <i class="fas fa-globe"></i> <span class="animated-pay-text">Payment</span>
+      </a>
+      <a class="link-btn product-btn" href="product">
+        <i class="fas fa-shopping-cart animated-cart"></i> <span class="animated-product-text">Product</span>
+      </a>
+    </div>
+    <div class="sosmed">
+      <a href="https://t.me/HexZo_Net" target="_blank" title="Telegram"><i class="fab fa-telegram"></i></a>
+      <a href="https://github.com/HexZoNetwork" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+      <a href="https://wa.me/6282376605047?text=Gutten Morgen HexZo." target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://whatsapp.com/channel/0029VbABpVeAu3aTmTfzXJ32" target="_blank" title="WhatsApp Channel"><i class="fas fa-bullhorn"></i></a>
+    </div>
+  </div>
+  <div class="footer" id="footer">
+    &copy; 2025 HexZo Network • All Rights Reserved
+  </div>
+  <audio id="efek-suara" src="https://files.catbox.moe/8334xc.mp3" loop></audio>
+  <div id="confetti-root"></div>
+  <script>
+    document.getElementById('profileName').addEventListener('click', function() {
+      this.style.letterSpacing = '0.18em';
+      this.style.filter = 'brightness(1.5) drop-shadow(0 2px 16px #8e2de2cc)';
+      this.style.animation = 'bounceName 0.5s';
+      setTimeout(() => {
+        this.style.letterSpacing = '';
+        this.style.filter = '';
+        this.style.animation = '';
+      }, 500);
+    });
+    document.getElementById('profileDesc').addEventListener('click', function() {
+      this.style.color = '#FFD700';
+      this.style.filter = 'brightness(1.2) drop-shadow(0 0 8px #FFD700)';
+      this.style.animation = 'pulseDesc 0.6s';
+      setTimeout(() => {
+        this.style.color = '';
+        this.style.filter = '';
+        this.style.animation = '';
+      }, 600);
+    });
+    document.getElementById('avatar').addEventListener('click', function() {
+      this.style.transform = 'scale(1.13) rotate(-8deg)';
+      this.style.boxShadow = '0 0 40px #0072ffcc, 0 0 24px #8e2de2cc';
+      this.style.animation = 'shakePic 0.5s';
+      setTimeout(() => {
+        this.style.transform = '';
+        this.style.boxShadow = '';
+        this.style.animation = '';
+      }, 500);
+    });
+    document.getElementById('footer').addEventListener('click', function() {
+      this.style.opacity = '1';
+      this.style.filter = 'brightness(1.2) drop-shadow(0 0 8px #FFD700)';
+      this.style.animation = 'footerPulse 0.6s';
+      setTimeout(() => {
+        this.style.opacity = '';
+        this.style.filter = '';
+        this.style.animation = '';
+      }, 600);
+    });
+
+    let discoCount = 0;
+    document.getElementById('profileName').addEventListener('click', function() {
+      discoCount++;
+      if (discoCount === 3) {
+        document.body.classList.add('disco');
+        document.getElementById('profileName').innerText = "HexZo (DISCO MODE)";
+        document.getElementById('efek-suara').play();
+        setTimeout(() => {
+          document.body.classList.remove('disco');
+          document.getElementById('profileName').innerText = "HexZo";
+          document.getElementById('efek-suara').pause();
+          document.getElementById('efek-suara').currentTime = 0;
+          discoCount = 0;
+        }, 3500);
+      }
+      setTimeout(() => { if (discoCount < 3) discoCount = 0; }, 2000);
+    });
+
+    document.querySelectorAll('.link-btn').forEach(btn => {
+  btn.addEventListener('touchstart', function() {
+    this.style.transform = 'scale(0.96)';
+    this.style.filter = 'brightness(0.95)';
+  });
+  btn.addEventListener('touchend', function() {
+    this.style.transform = '';
+    this.style.filter = '';
+  });
+  btn.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      this.click();
+    }
+  });
+});
+
+    document.querySelectorAll('.sosmed a').forEach(icon => {
+      icon.addEventListener('mousedown', function() {
+        this.style.transform = 'scale(1.28) rotate(8deg)';
+        setTimeout(() => { this.style.transform = ''; }, 180);
+      });
+    });
+
+    let footerClick = 0;
+    document.getElementById('footer').addEventListener('click', function() {
+      footerClick++;
+      if (footerClick === 5) {
+        this.classList.add('secret');
+        this.innerHTML = "🎉 Kamu menemukan secret footer! 🎉";
+        setTimeout(() => {
+          this.classList.remove('secret');
+          this.innerHTML = "&copy; 2025 HexZo Network • All Rights Reserved";
+          footerClick = 0;
+        }, 2500);
+      }
+      setTimeout(() => { if (footerClick < 5) footerClick = 0; }, 2000);
+    });
+
+    let avatarClick = 0;
+let animatingAvatar = false;
+const avatar = document.getElementById('avatar');
+const avatarParent = avatar.parentElement;
+const avatarRect = () => avatar.getBoundingClientRect();
+const avatarOrigin = {left: 0, top: 0};
+
+avatar.addEventListener('click', function() {
+  if (animatingAvatar) return;
+  avatarClick++;
+  if (avatarClick < 5) {
+    avatar.style.transform = 'scale(1.13) rotate(-8deg)';
+    avatar.style.boxShadow = '0 0 40px #0072ffcc, 0 0 24px #8e2de2cc';
+    avatar.style.animation = 'shakePic 0.5s';
+    setTimeout(() => {
+      avatar.style.transform = '';
+      avatar.style.boxShadow = '';
+      avatar.style.animation = '';
+    }, 500);
+  }
+  if (avatarClick === 5) {
+    animatingAvatar = true;
+    const rect = avatar.getBoundingClientRect();
+    const parentRect = avatarParent.getBoundingClientRect();
+    avatarOrigin.left = avatar.offsetLeft;
+    avatarOrigin.top = avatar.offsetTop;
+    avatar.style.position = 'absolute';
+    avatar.style.zIndex = 99;
+    avatar.style.left = avatarOrigin.left + 'px';
+    avatar.style.top = avatarOrigin.top + 'px';
+    avatar.style.transition = 'none';
+    let running = true;
+    let duration = 20000;
+    let interval = setInterval(() => {
+      if (!running) return;
+      let px = Math.random() * (avatarParent.offsetWidth - avatar.offsetWidth);
+      let py = Math.random() * (avatarParent.offsetHeight - avatar.offsetHeight);
+      avatar.style.transition = 'left 0.7s cubic-bezier(.4,2,.6,1), top 0.7s cubic-bezier(.4,2,.6,1), transform 0.7s cubic-bezier(.4,2,.6,1)';
+      avatar.style.left = px + 'px';
+      avatar.style.top = py + 'px';
+      avatar.style.transform = `rotate(${Math.random()*40-20}deg) scale(${0.95 + Math.random()*0.15})`;
+    }, 700);
+    setTimeout(() => {
+      running = false;
+      clearInterval(interval);
+      avatar.style.transition = 'left 1.2s cubic-bezier(.4,2,.6,1), top 1.2s cubic-bezier(.4,2,.6,1), transform 1.2s cubic-bezier(.4,2,.6,1)';
+      avatar.style.left = avatarOrigin.left + 'px';
+      avatar.style.top = avatarOrigin.top + 'px';
+      avatar.style.transform = '';
+      setTimeout(() => {
+        avatar.style.position = '';
+        avatar.style.zIndex = '';
+        avatar.style.left = '';
+        avatar.style.top = '';
+        avatar.style.transition = '';
+        animatingAvatar = false;
+      }, 1200);
+    }, duration);
+    avatarClick = 0;
+  }
+  setTimeout(() => { if (avatarClick < 5) avatarClick = 0; }, 3000);
+});
+
+    function animateProfileStep(step) {
+      const steps = [
+        () => { profileContainer.style.transform = 'rotate(-8deg) scale(1.08)'; },
+        () => { profileContainer.style.transform = 'rotate(8deg) scale(1.12)'; },
+        () => { profileContainer.style.transform = 'translateX(-40px) scale(1.04)'; },
+        () => { profileContainer.style.transform = 'translateX(40px) scale(1.04)'; },
+        () => { profileContainer.style.transform = 'translateY(-30px) scale(1.08)'; }
+      ];
+      if (steps[step - 1]) {
+        steps[step - 1]();
+        setTimeout(() => {
+          profileContainer.style.transform = '';
+        }, 350);
+      }
+    }
+
+    function animateProfileRunAround(callback) {
+      animatingProfile = true;
+      let running = true;
+      let start = Date.now();
+      let duration = 20000;
+      let width = window.innerWidth;
+      let height = window.innerHeight;
+      let interval = setInterval(() => {
+        if (!running) return;
+        let x = (Math.random() - 0.5) * (width * 0.7);
+        let y = (Math.random() - 0.5) * (height * 0.4);
+        profileContainer.style.transition = 'transform 0.7s cubic-bezier(.4,2,.6,1)';
+        profileContainer.style.transform = `translate(${x}px, ${y}px) rotate(${Math.random()*40-20}deg) scale(${0.95 + Math.random()*0.15})`;
+      }, 700);
+      setTimeout(() => {
+        running = false;
+        clearInterval(interval);
+        profileContainer.style.transition = 'transform 1.2s cubic-bezier(.4,2,.6,1)';
+        profileContainer.style.transform = '';
+        setTimeout(() => {
+          if (typeof callback === 'function') callback();
+        }, 1200);
+      }, duration);
+    }
+
+    function showConfetti() {
+      const colors = ['#8e2de2', '#0072ff', '#FFD700', '#fff', '#ff4b2b', '#43e97b', '#38f9d7'];
+      const confettiRoot = document.createElement('div');
+      confettiRoot.className = 'confetti';
+      confettiRoot.style.opacity = 1;
+      for (let i = 0; i < 60; i++) {
+        const conf = document.createElement('div');
+        conf.className = 'confetti-piece';
+        conf.style.background = colors[Math.floor(Math.random() * colors.length)];
+        conf.style.left = Math.random() * 100 + 'vw';
+        conf.style.top = '-20px';
+        conf.style.opacity = 0.7 + Math.random() * 0.3;
+        conf.style.transform = `rotate(${Math.random()*360}deg)`;
+        conf.style.transition = 'transform 1.2s cubic-bezier(.4,2,.6,1), top 1.2s cubic-bezier(.4,2,.6,1), opacity 0.7s cubic-bezier(.4,2,.6,1)';
+        setTimeout(() => {
+          conf.style.top = (60 + Math.random()*30) + 'vh';
+          conf.style.transform = `rotate(${Math.random()*720-360}deg) scale(${0.7+Math.random()*0.7})`;
+          conf.style.opacity = 0.95;
+        }, 10);
+        confettiRoot.appendChild(conf);
+      }
+      document.body.appendChild(confettiRoot);
+      setTimeout(() => {
+        confettiRoot.style.opacity = 0;
+        setTimeout(() => confettiRoot.remove(), 700);
+      }, 1800);
+    }
+    function flashScreen() {
+      const flash = document.createElement('div');
+      flash.className = 'flash';
+      flash.style.opacity = 0.85;
+      document.body.appendChild(flash);
+      setTimeout(() => {
+        flash.style.opacity = 0;
+        setTimeout(() => flash.remove(), 500);
+      }, 200);
+    }
+    firebase.auth().onAuthStateChanged(function(user) {
+  if (!user) {
+    window.location.href = "index";
+    return;
+  }
+  const pic = user.photoURL || "https://ui-avatars.com/api/?name=" + encodeURIComponent(user.displayName || "U");
+  document.getElementById('profileCornerPic').src = pic;
+  document.getElementById('profileCornerName').textContent = user.displayName || "User";
+  document.getElementById('profileCorner').onclick = function() {
+    window.location.href = "profile.html";
+  };
+});
+  </script>
+</body>
+</html>
